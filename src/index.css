@@ -19,6 +19,12 @@ body {
   line-height: 17.9px;
 }
 
+h1 {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 33.04px;
+}
+
 h2 {
   font-weight: 600;
   font-size: 14px;
@@ -88,4 +94,32 @@ h3 {
 }
 .cell:last-child {
   border-right: 1px solid rgba(227, 230, 236, 1);
+}
+
+.cell:first-child{
+  justify-content: center;
+}
+
+.table_paginator {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 103px 12px 119px;
+}
+
+.paginator_list button {
+  border: none;
+  background: none;
+  margin: 0 5px;
+  font-style: italic;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24.78px;
+  
+}
+
+.table_paginator h1:hover,
+.table_paginator button:hover {
+  color: rgba(126, 188, 60, 1);
+  cursor: pointer;
 }

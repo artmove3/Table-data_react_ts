@@ -1,13 +1,16 @@
 import { TableHeader } from "./components/TableHeader";
 import { TableTemplate } from "./components/TableTemplate";
-// import { dataArray } from "./assets/data/data";
+import { TablePaginator } from "./components/TablePaginator";
 
 
 function App() {
+  const numberOfdataOnPage = 10
+
   return (
     <div className="table-app">
       <TableHeader />
-      <TableTemplate />
+      <TableTemplate props={numberOfdataOnPage}/>
+      <TablePaginator props={numberOfdataOnPage}/>
     </div>
   );
 }

@@ -4,3 +4,7 @@ export interface IData {
     "title": string,
     "body": string
 }
+
+export interface IProps {
+    props: number
+}
