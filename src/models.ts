@@ -6,5 +6,7 @@ export interface IData {
 }
 
 export interface IProps {
-    props: number
+    numberOfdataOnPage:number
+    
+    
 }

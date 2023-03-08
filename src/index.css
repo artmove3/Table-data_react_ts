@@ -105,6 +105,8 @@ h3 {
   display: flex;
   justify-content: space-between;
   padding: 16px 103px 12px 119px;
+  position: fixed;
+  bottom: 0;
 }
 
 .paginator_list button {
