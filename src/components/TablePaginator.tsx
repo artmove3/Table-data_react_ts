@@ -1,13 +1,12 @@
-import { dataArray } from "../assets/data/data"
 import { IProps } from "../models"
 import { useContext } from 'react'
 import { PageContext } from "../context/PageContext";
 
 export function TablePaginator(props:IProps) {
 
-    const {page, changePage} = useContext(PageContext)
+    const {page, changePage, data} = useContext(PageContext)
     
-    const numberOfPage = Math.ceil(dataArray.length / props.numberOfdataOnPage)
+    const numberOfPage = Math.ceil(data.length / props.numberOfdataOnPage)
 
     const paginatorList:number[] = [...Array(numberOfPage).keys()]
     

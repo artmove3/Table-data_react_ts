@@ -1,4 +1,3 @@
-import { dataArray } from "../assets/data/data";
 import { IData } from "../models";
 import { TableRow } from "./TableRow";
 import { IProps } from "../models";
@@ -9,7 +8,7 @@ import { PageContext } from "../context/PageContext";
 
 export function TableTemplate(props:IProps) {
 
-    const {page} = useContext(PageContext)
+    const {page, data} = useContext(PageContext)
 
     let localPageData:IData[] = []
     const startPoint = (page * props.numberOfdataOnPage) - props.numberOfdataOnPage
@@ -17,10 +16,9 @@ export function TableTemplate(props:IProps) {
 
 
     for(let i = startPoint; i <= endPoint; i++) {
-        if(!dataArray[i]) break
-        localPageData[i] = dataArray[i]
+        if(!data[i]) break
+        localPageData[i] = data[i]
        
-    //    if(((i + 1) % props.numberOfdataOnPage === 0) && i !== 0) break
     }
 
     function renderTableTemplate() {

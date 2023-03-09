@@ -49,14 +49,15 @@ h3 {
   width: 1076px;
   background-color: rgba(71, 73, 85, 1);
   padding: 19px 0 16px;
-  margin-top: 15px;
-  
+  margin-top: 90px;
+  position: relative;
 }
 
 .data_id,
 .data_title,
 .data_body {
   display: flex;
+  cursor: pointer;
   /* justify-content: center; */
 }
 
@@ -124,4 +125,33 @@ h3 {
 .table_paginator button:hover {
   color: rgba(126, 188, 60, 1);
   cursor: pointer;
+}
+
+.table_search-bar {
+  background: rgba(90, 92, 102, 1);
+  padding: 18px 15px 15px 26px;
+  margin-top: 23px;
+  width: 631px;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 25px;
+  position: absolute;
+  top: -97px;
+}
+
+.table_search-bar input {
+  outline: none;
+  border: none;
+  background: none;
+  color: rgba(255, 255, 255, 1);
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 19.28px;
+  width: 100%;
+
+}
+input::placeholder {
+  color: rgba(178, 183, 191, 1);
+
 }
