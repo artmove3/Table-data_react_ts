@@ -6,21 +6,30 @@ import { SearchBar } from './SearchBar'
 
 export function TableHeader() {
 
-    const {data, changeDataArray} = useContext(PageContext)
-
+    const {data, changeDataArray, searchedData, changeSearchedData} = useContext(PageContext)
+    const currentData = searchedData[0].id > 0 ? [...searchedData] : [...data]
     const sortDataById = () => {
-        const sortedData = [...data]
-        changeDataArray(sortedData.sort((a, b) => b.id - a.id)) 
+        const sortedData = [...currentData]
+        sortedData === searchedData ? changeDataArray(sortedData.sort((a, b) => b.id - a.id)) : changeSearchedData(sortedData.sort((a, b) => b.id - a.id))
+
     }
 
     const sortDataByTitle = () => {
-        const sortedData = [...data]
-        changeDataArray(sortedData.sort((a, b) => b.title.length - a.title.length))
+        const sortedData = [...currentData]
+        sortedData === searchedData ? 
+        changeDataArray(sortedData.sort((a, b) => b.title.length - a.title.length)) 
+        : 
+        changeSearchedData(sortedData.sort((a, b) => b.title.length - a.title.length))
+
     }
 
     const sortDataByBody = () => {
-        const sortedData = [...data]
-        changeDataArray(sortedData.sort((a, b) => b.body.length - a.body.length))
+        const sortedData = [...currentData]
+        sortedData === searchedData ? 
+        changeDataArray(sortedData.sort((a, b) => b.body.length - a.body.length)) 
+        : 
+        changeSearchedData(sortedData.sort((a, b) => b.body.length - a.body.length))
+
     }
 
     return (

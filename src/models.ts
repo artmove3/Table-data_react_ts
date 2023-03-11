@@ -6,7 +6,8 @@ export interface IData {
 }
 
 export interface IProps {
-    numberOfdataOnPage:number
+    numberOfdataOnPage: number,
+    currentData: IData[]
     
     
 }

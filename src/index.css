@@ -127,6 +127,11 @@ h3 {
   cursor: pointer;
 }
 
+.table_paginator .clicked {
+  color: rgba(126, 188, 60, 1);
+}
+
+
 .table_search-bar {
   background: rgba(90, 92, 102, 1);
   padding: 18px 15px 15px 26px;

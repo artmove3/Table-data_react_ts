@@ -6,18 +6,18 @@ import { PageContext } from "../context/PageContext";
 
 
 
-export function TableTemplate(props:IProps) {
+export function TableTemplate({numberOfdataOnPage, currentData}:IProps) {
 
-    const {page, data} = useContext(PageContext)
+    const {page} = useContext(PageContext)
 
     let localPageData:IData[] = []
-    const startPoint = (page * props.numberOfdataOnPage) - props.numberOfdataOnPage
-    const endPoint = startPoint + (props.numberOfdataOnPage - 1)
+    const startPoint = (page * numberOfdataOnPage) - numberOfdataOnPage
+    const endPoint = startPoint + (numberOfdataOnPage - 1)
 
-
+    
     for(let i = startPoint; i <= endPoint; i++) {
-        if(!data[i]) break
-        localPageData[i] = data[i]
+        if(!currentData[i]) break
+        localPageData[i] = currentData[i]
        
     }
 
