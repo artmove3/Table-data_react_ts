@@ -6,8 +6,8 @@ export function TableBody() {
     const {pageState: { data }} = useContext(PageContext)
 
     return (
-        <div className="table_template">
-            {data.map(data => <TableRow props={data} key={data.id}/>)}
+        <div className="table_body">
+            {data.length !== 0 ?(data.map(data => <TableRow props={data} key={data.id}/>)) : <h1>No data found</h1>}
         </div>
     )
 }

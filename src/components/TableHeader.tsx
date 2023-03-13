@@ -3,16 +3,17 @@ import arrowExpand from '../assets/svg/arrow-expand.svg'
 import { PageContext, SortedBy } from '../context/PageContext'
 import { SearchBar } from './SearchBar'
 
-
 export function TableHeader() {
     const { sortDataBy, pageState: { sortedBy } } = useContext(PageContext)
+
+
 
     const arrowClass = (expected: SortedBy) =>
         sortedBy === expected ? "active" : ""
 
     return (
         <div className="table_header">
-            <div className="data_id" onClick={() => sortDataBy(SortedBy.Id)}>
+            <div className="data_id" onClick={() =>sortDataBy(SortedBy.Id)}>
                 <h2>ID</h2>
                 <img src={arrowExpand} alt="arrow-expand" className={arrowClass(SortedBy.Id)} />
             </div>

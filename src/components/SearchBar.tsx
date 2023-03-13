@@ -18,7 +18,7 @@ export function SearchBar() {
 
     const inputHandler =(event:React.ChangeEvent<HTMLInputElement>) => {
         changeSearchBarValue(event.target.value)
-        search(event.target.value)
+        search(event.target.value.toLowerCase())
     }
 
     return(

@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 import { IData } from "../models";
 import { dataArray } from "../assets/data/data";
 
@@ -30,7 +30,7 @@ interface IPageContext {
 }
 
 export const PageContext = createContext<IPageContext>({
-    pageState:  {
+    pageState: {
         index: 0,
         data: [],
         filtered: [],
@@ -50,16 +50,16 @@ export const PageContext = createContext<IPageContext>({
 export const PageState = ({children}:{children:React.ReactNode}) => {
     const [pageCapacity] = useState(10)
     const [pageState, setPageState] = useState(() => {
-        const split =  window.location.hash.split('#')
+        const split =  window.location.pathname.split('/')
         let index = 0
         // get page from url bar in browser and set as current index
-        if (split.length === 2) {
-            index = Math.max(+split[1] - 1, 0)
+        if (split.length === 3 && split[1] === 'page') {
+            index = Math.max(+split[2] - 1, 0)
         }
         const start = index * pageCapacity
         const data = dataArray.slice(start, start + pageCapacity)
 
-        window.history.pushState({ index }, '', `#${index + 1}`)
+        window.history.pushState({ index }, '', `/page/${index + 1}`)
 
         return {
             index,
@@ -72,15 +72,16 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
 
     const pageCount = Math.ceil(pageState.filtered.length / pageCapacity)
 
-    const changePageFn = (prev:IPageState, index:number, pushState: boolean) => {
+    const changePageFn = useCallback((prev:IPageState, index:number, pushState: boolean) => {
         let data = prev.data
         if (index !== prev.index) {
             const start = index * pageCapacity
             data = prev.filtered.slice(start, start + pageCapacity)
-            // TODO: Check the current history and decide if need to push
+            
             if (pushState) {
-                window.history.pushState({ index }, '', `#${index + 1}`)
+                window.history.pushState({ index }, '', `/page/${index + 1}`)
             }
+
         }
 
         return {
@@ -88,7 +89,7 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
             index,
             data,
         }
-    }
+    }, [pageCapacity])
 
     const changePage = (index:number) => setPageState(prev => {
         return changePageFn(prev, index, true)
@@ -190,23 +191,19 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
 
     const changeSearchBarValue = (value:string) => setSearchBarValue(value)
 
-    window.addEventListener('hashchange', (event: HashChangeEvent) => {
-        event.preventDefault();
-        // TODO: Check if it is number and handle url properly, don't use split
-        const split =  event.newURL.split('#')
-        console.log({ split })
-        if (split.length === 2) {
-            setPageState(prev => changePageFn(prev, Math.max(+split[1] - 1, 0), false))
+    useEffect(() => {
+        const listener = (event: PopStateEvent) => {
+            event.preventDefault();
+            if (event.state && event.state.index !== undefined) {
+                setPageState(prev => changePageFn(prev, event.state.index, false))
+            }
         }
-    })
 
-    window.addEventListener('popstate', (event: PopStateEvent) => {
-        event.preventDefault();
-        console.log({ state: event.state })
-        if (event.state && event.state.index !== undefined) {
-            setPageState(prev => changePageFn(prev, event.state.index, false))
+        window.addEventListener('popstate', listener)
+        return () => {
+            window.removeEventListener('popstate', listener)
         }
-    })
+    }, [changePageFn]) 
 
     return (
         <PageContext.Provider
