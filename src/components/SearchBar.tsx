@@ -4,29 +4,21 @@ import { PageContext } from "../context/PageContext";
 
 
 export function SearchBar() {
-    const {data, searchBarValue, changeSearchBarValue, changeSearchedData} = useContext(PageContext)
+    const {searchBarValue, changeSearchBarValue, filterData} = useContext(PageContext)
+
+    const search = (value:string) => {
+        if(value.length >= 3 || +value >= 1) {
+            return filterData(item => {
+                return item.body.includes(value) || item.title.includes(value) || item.id === +value
+            })
+        } 
+        filterData(null)
+        
+    }
 
     const inputHandler =(event:React.ChangeEvent<HTMLInputElement>) => {
         changeSearchBarValue(event.target.value)
-        filterData(event.target.value)
-    }
-
-
-    const filterData = (value:string) => {
-        
-        const initialData = [{userId: 0, id: 0, title: '', body: ''}]
-
-        if(value.length >= 3 || +value > 1) {
-            const filteredData = [...data].filter(data => {
-              return data.body.includes(value) || data.title.includes(value) || data.id === +value
-            })
-           // change searched data or set initial data, if filter return empty array
-           return changeSearchedData(filteredData.length > 0 ? filteredData : initialData)
-
-        }
-        // set initial data if condition doesn't match
-        changeSearchedData(initialData)
-        
+        search(event.target.value)
     }
 
     return(

@@ -66,6 +66,12 @@ h3 {
 .data_body img {
   margin-left: 35px;
 }
+.data_id .active,
+.data_title .active,
+.data_body .active {
+  transform: rotate(180deg);
+}
+
 
 .data_row {
   display: flex;
@@ -91,7 +97,7 @@ h3 {
   border-left: 1px solid rgba(227, 230, 236, 1);
   display: flex;
   align-items: center;
-  padding: 5px;
+  padding: 10px;
 }
 .cell:last-child {
   border-right: 1px solid rgba(227, 230, 236, 1);
@@ -118,6 +124,7 @@ h3 {
   font-weight: 700;
   font-size: 18px;
   line-height: 24.78px;
+  font-family: 'Roboto', sans-serif;
   
 }
 
