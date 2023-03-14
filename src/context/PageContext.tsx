@@ -139,6 +139,7 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
 
     const sortDataBy = (field: SortedBy) => setPageState(prev => {
         switch (field) {
+            // sorting by id num
             case SortedBy.Id: {
                if(prev.sortedBy === SortedBy.Id) {
                     return {
@@ -153,17 +154,18 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
                     sortedBy: SortedBy.Id
                }
             }
+            // sorting by alphabet
             case SortedBy.Title: {
                 if(prev.sortedBy === SortedBy.Title) {
                     return {
                         ...prev,
-                        ...sortData(prev, (a, b) => a.title.localeCompare(b.title)),
+                        ...sortData(prev, (a, b) => b.title.localeCompare(a.title)),
                         sortedBy: SortedBy.None,
                     } 
                }
                return {
                     ...prev,
-                    ...sortData(prev, (a, b) => b.title.localeCompare(a.title)),
+                    ...sortData(prev, (a, b) => a.title.localeCompare(b.title)),
                     sortedBy: SortedBy.Title
                }
                 
@@ -173,13 +175,13 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
                 if(prev.sortedBy === SortedBy.Body) {
                     return {
                         ...prev,
-                        ...sortData(prev, (a, b) => a.body.localeCompare(b.body)),
+                        ...sortData(prev, (a, b) => b.body.localeCompare(a.body)),
                         sortedBy: SortedBy.None,
                     } 
                }
                return {
                     ...prev,
-                    ...sortData(prev, (a, b) => b.body.localeCompare(a.body)),
+                    ...sortData(prev, (a, b) => a.body.localeCompare(b.body)),
                     sortedBy: SortedBy.Body
                }
             }
@@ -200,6 +202,7 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
         }
 
         window.addEventListener('popstate', listener)
+        //remove listener on re-render
         return () => {
             window.removeEventListener('popstate', listener)
         }
