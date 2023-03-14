@@ -53,13 +53,13 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
         const split =  window.location.pathname.split('/')
         let index = 0
         // get page from url bar in browser and set as current index
-        if (split.length === 3 && split[1] === 'page') {
-            index = Math.max(+split[2] - 1, 0)
+        if (split.length === 4 && split[2] === 'page') {
+            index = Math.max(+split[3] - 1, 0)
         }
         const start = index * pageCapacity
         const data = dataArray.slice(start, start + pageCapacity)
 
-        window.history.pushState({ index }, '', `/page/${index + 1}`)
+        window.history.pushState({ index }, '', `/Table-data_react_ts/page/${index + 1}`)
 
         return {
             index,
@@ -79,7 +79,7 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
             data = prev.filtered.slice(start, start + pageCapacity)
             
             if (pushState) {
-                window.history.pushState({ index }, '', `/page/${index + 1}`)
+                window.history.pushState({ index }, '', `/Table-data_react_ts/page/${index + 1}`)
             }
 
         }
@@ -202,7 +202,7 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
         }
 
         window.addEventListener('popstate', listener)
-        //remove listener on re-render
+        //remove listener on rerender
         return () => {
             window.removeEventListener('popstate', listener)
         }
