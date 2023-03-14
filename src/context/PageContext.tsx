@@ -53,7 +53,7 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
         const split =  window.location.href.split('/')
         let index = 0
         // get page from url bar in browser and set as current index
-        if (split.length >= 2 && split[split.length - 1] === 'page') {
+        if (split.length >= 2 && split[split.length - 1] === `${index}`) {
             index = Math.max(+split[split.length - 1] - 1, 0)
         }
         const start = index * pageCapacity
