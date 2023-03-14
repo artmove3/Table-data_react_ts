@@ -50,11 +50,12 @@ export const PageContext = createContext<IPageContext>({
 export const PageState = ({children}:{children:React.ReactNode}) => {
     const [pageCapacity] = useState(10)
     const [pageState, setPageState] = useState(() => {
-        const split =  window.location.pathname.split('/')
+        const split =  window.location.href.split('/')
+        console.log( split)
         let index = 0
         // get page from url bar in browser and set as current index
-        if (split.length === 4 && split[2] === 'page') {
-            index = Math.max(+split[3] - 1, 0)
+        if (split.length >= 6 && split[split.length - 2] === 'page') {
+            index = Math.max(+split[split.length - 1] - 1, 0)
         }
         const start = index * pageCapacity
         const data = dataArray.slice(start, start + pageCapacity)
@@ -195,7 +196,8 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
 
     useEffect(() => {
         const listener = (event: PopStateEvent) => {
-            event.preventDefault();
+            event.preventDefault()
+            // return on previous page in history
             if (event.state && event.state.index !== undefined) {
                 setPageState(prev => changePageFn(prev, event.state.index, false))
             }
