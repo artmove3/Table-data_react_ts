@@ -2,7 +2,7 @@
   "name": "table-data_react_ts",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://artmove3.github.io/Table-data_react_ts",
+  "homepage": "https://artmove3.github.io/Table-data_react_ts/page/1",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
