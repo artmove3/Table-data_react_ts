@@ -60,7 +60,7 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
         const start = index * pageCapacity
         const data = dataArray.slice(start, start + pageCapacity)
 
-        window.history.pushState({ index }, '', `/Table-data_react_ts/page/${index + 1}`)
+        window.history.pushState({ index }, '', `/page/${index + 1}`)
 
         return {
             index,
@@ -80,7 +80,7 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
             data = prev.filtered.slice(start, start + pageCapacity)
             
             if (pushState) {
-                window.history.pushState({ index }, '', `/Table-data_react_ts/page/${index + 1}`)
+                window.history.pushState({ index }, '', `/page/${index + 1}`)
             }
 
         }
