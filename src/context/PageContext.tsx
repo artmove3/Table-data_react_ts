@@ -50,11 +50,11 @@ export const PageContext = createContext<IPageContext>({
 export const PageState = ({children}:{children:React.ReactNode}) => {
     const [pageCapacity] = useState(10)
     const [pageState, setPageState] = useState(() => {
-        const split =  window.location.href.split('/')
-
+        const split =  window.location.pathname.split('/')
+        console.log(split)
         let index = 0
         // get page from url bar in browser and set as current index
-        if (split.length >= 6 && split[split.length - 2] === 'page') {
+        if (split.length >= 4 && split[split.length - 2] === 'page') {
             index = Math.max(+split[split.length - 1] - 1, 0)
         }
         const start = index * pageCapacity
@@ -79,10 +79,12 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
             const start = index * pageCapacity
             data = prev.filtered.slice(start, start + pageCapacity)
             
-            if (pushState) {
-                window.history.pushState({ index }, '', `/Table-data_react_ts/page/${index + 1}`)
-            }
+            
 
+        }
+
+        if (pushState) {
+            window.history.pushState({ index }, '', `/Table-data_react_ts/page/${index + 1}`)
         }
 
         return {
@@ -200,10 +202,14 @@ export const PageState = ({children}:{children:React.ReactNode}) => {
             // return on previous page in history
             if (event.state && event.state.index !== undefined) {
                 setPageState(prev => changePageFn(prev, event.state.index, false))
+                
             }
         }
 
         window.addEventListener('popstate', listener)
+        window.addEventListener('load', () => {
+            setPageState(prev => changePageFn(prev, prev.index, true))
+        })
         //remove listener on rerender
         return () => {
             window.removeEventListener('popstate', listener)
